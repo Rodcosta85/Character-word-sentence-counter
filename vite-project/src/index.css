@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import url('https://fonts.google.com/share?selection.family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000');
+
+@theme {
+  --color-almost-black: #12131A;
+  --color-off-black: #21222C;
+  --color-dark-gray: #2A2B37;
+  --color-medium-gray: #404254;
+  --color-light-gray: #E4E4EF;
+  --color-off-white: #F2F2F7;
+  --color-basic-white: #FFFFFF;
+  --color-light-purple: #D3A0FA;
+  --color-medium-purple: #C27CF8;
+  --color-strong-orange: #FF9F00;
+  --color-light-red: #FE8159;
+  --color-medium-red: #DA3701;
+
+  --text-preset-1: 64px;
+  --text-preset-1-letter-spacing: -1px;
+  --text-preset-2: 24px;
+  --text-preset-2-letter-spacing: -1px;
+  --text-preset-3: 20px;
+  --text-preset-3-letter-spacing: -0.6px;
+  --text-preset-4: 16px;
+  --text-preset-4-letter-spacing: -0.6px;
+
+  --font-dm-sans: "DM Sans", sans-serif;
+
+  --rounded-radius-0: 0;
+  --rounded-radius-4: 4px;
+  --rounded-radius-6: 6px;
+  --rounded-radius-8: 8px;
+  --rounded-radius-10: 10px;
+  --rounded-radius-12: 12px;
+  --rounded-radius-16: 16px;
+  --rounded-radius-20: 20px;
+  --rounded-radius-24: 24px;
+  --rounded-radius-full:  999px
+}
