@@ -21,10 +21,11 @@ interface TextareaProps {
     trimChars: () => void,
     checked: Record<string, boolean>
     buttonArr: ButtonProps[];
-    handleChecked: (id: string) => void;
+    handleChecked: (id: string) => void,
+    wordCount: string
 }
 
-const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleCharCount, trimChars, checked, buttonArr, handleChecked }) => {
+const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleCharCount, trimChars, checked, buttonArr, handleChecked, wordCount }) => {
 
     const [limit, setLimit] = useState<string>('300');
     const [limitPassed, setLimitPassed] = useState<boolean>(false);
@@ -41,6 +42,17 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
         handleChecked(buttonArr[0].id);
         trimChars();
     }
+
+    const wordCountNum = Number(wordCount);
+    const readingTime = (wordCountNum/225).toFixed(2);
+    let readingTimeNum = Number(readingTime);
+    let timeVal = 'minutes'
+
+    if (readingTimeNum < 1) {
+        timeVal = 'seconds'
+        readingTimeNum = Math.round(readingTimeNum * 60);
+    } else {}
+
 
     const inputNumberStyles = 'text-light-gray w-[3.4375rem] h-[1.8125rem] pl-[0.75rem] pr-[0.75rem] pt-[0.25rem] pb-[0.25rem] rounded-[0.375rem] border-[1px] border-medium-gray focus:outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]'
     const textareaStyles = 'w-[61.875rem] h-[12.5rem] border-[2px] p-[1.25rem] border-medium-gray bg-off-black hover:bg-dark-gray rounded-[0.75rem] text-light-gray placeholder:text-light-gray focus:shadow-[0_0_10px_0_var(--light-purple)]'
@@ -84,7 +96,7 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
                         />
                     </div>
                 </div>
-                <p className="text-preset-4 text-light-gray">Approx. reading time: X minutes</p>
+                <p className="text-preset-4 text-light-gray">Approx. reading time: {readingTimeNum} {timeVal}</p>
             </div>
         </div>
     )

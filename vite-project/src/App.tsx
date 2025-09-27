@@ -78,6 +78,7 @@ function App() {
           checked={checked}
           buttonArr={buttonArr}
           handleChecked={handleChecked}
+          wordCount={wordCount}
         />
         <ThreeCards
           charsWithoutSpaces={charsWithoutSpaces}
