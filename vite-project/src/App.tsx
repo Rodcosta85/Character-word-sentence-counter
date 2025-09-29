@@ -5,32 +5,15 @@ import themes from './themes';
 
 // componentes
 import Header from './Header/Header';
-import Inputs from './Inputs/Inputs'
-import ThreeCards from './Three Cards/ThreeCards'
-import LetterDensity from './Letter Density/LetterDensity';
+import Inputs from './Inputs';
+import ThreeCards from './ThreeCards'
+import LetterDensity from './LetterDensity';
 
 // interface dos botões pseudo-checkboxes
 interface ButtonProps {
   id: string,
   label: string
 }
-
-// interface ThemeProps {
-//   overallBg: string,
-//   LogoSrc: any,
-//   title: string,
-//   changeBtn: any,
-//   mainHeading: string,
-//   textareaBg: string,
-//   textareaBorder: string,
-//   textareaText: string,
-//   checkboxes: string,
-//   label: string,
-//   headingLetter: string,
-//   letters: string,
-//   emptyPercentage: string,
-//   seeMore: string
-// }
 
 function App() {
 
@@ -50,7 +33,7 @@ function App() {
   const [currentTheme, setCurrentTheme] = useState<typeof themes[0]>(themes[0]);
 
   // estado que seta o botão e - consequentemente - muda os temas
-  const [themeBtn, setThemeBtn] = useState<any>(false);
+  const [themeBtn, setThemeBtn] = useState<boolean>(false);
 
 
   // função que calcula a quantidade de caracteres na string do textarea
@@ -96,11 +79,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (themeBtn === true) {
-      setCurrentTheme(themes[0])
-    } else if (themeBtn === false) {
-      setCurrentTheme(themes[1]);
-    }
+    setCurrentTheme(themeBtn ? themes[0] : themes[1]);
   }, [themeBtn])
 
 
@@ -132,7 +111,6 @@ function App() {
           charsWithoutSpaces={charsWithoutSpaces}
           wordCount={wordCount}
           sentencesCount={sentencesCount}
-          currentTheme={currentTheme}
         />
         <LetterDensity
           textarea={textarea}

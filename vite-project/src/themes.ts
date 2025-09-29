@@ -1,13 +1,33 @@
-import Logo from './../../starter files/character-counter/starter-code/assets/images/logo-dark-theme.svg';
-import LogoWhite from './../../starter files/character-counter/starter-code/assets/images/logo-light-theme.svg'
-import Sun from './../../starter files/character-counter/starter-code/assets/images/icon-sun.svg'
-import Moon from './../../starter files/character-counter/starter-code/assets/images/icon-moon.svg'
+import Logo from './assets/logo-dark-theme.svg';
+import LogoWhite from './assets/logo-light-theme.svg'
+import Sun from './assets/icon-sun.svg'
+import Moon from './assets/icon-moon.svg'
 import Chevron from './assets/check.svg'
 import ChevronBlack from './assets/chevron-black.svg'
 
+export interface Theme {
+    overallBg: string,
+    LogoSrc: string,
+    title: string,
+    changeBtn: string,
+    changeBg: string,
+    mainHeading: string,
+    textareaBg: string,
+    textareaBorder: string,
+    textareaText: string,
+    textareaPlaceholder: string,
+    checkboxes: string,
+    label: string,
+    inputBorder: string,
+    headingLetter: string,
+    densityDescription: string,
+    letters: string,
+    emptyPercentage: string,
+    seeMore: string,
+    chevron: string,
+}
 
-
-const themes = [
+const themes: Theme[] = [
     {
         overallBg: 'bg-almost-black',
         LogoSrc: Logo,

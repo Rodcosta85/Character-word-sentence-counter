@@ -1,14 +1,9 @@
 import React from 'react'
-
 import Check from './../../assets/check.svg';
+import themes from '../../themes';
 
 interface ButtonProps {
     id: string,
-    label: string
-}
-
-interface ThemeProps {
-    checkboxes: string,
     label: string
 }
 
@@ -16,7 +11,7 @@ interface SomeProps {
     buttonArr: ButtonProps[];
     handleClick: () => void,
     checked: Record<string, boolean>
-    currentTheme: ThemeProps
+    currentTheme: Partial<typeof themes[0]>;
 }
 
 const ExcludeSpaces:React.FC<SomeProps> = ({ buttonArr, handleClick, checked, currentTheme }) => {

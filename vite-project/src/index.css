@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.google.com/share?selection.family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000');
 
 @theme {
   --color-almost-black: #12131A;

@@ -4,8 +4,10 @@ import { useState } from "react";
 import Exclamation from './../assets/info-circle.png';
 
 // componentes filhos
-import ExcludeSpaces from "./Exclude Spaces/ExcludeSpaces";
-import ChraracterLimit from "./Character Limit/ChraracterLimit";
+import ExcludeSpaces from "./ExcludeSpaces";
+import ChraracterLimit from "./CharacterLimit";
+
+import type { Theme } from "../themes";
 
 // props do array do buttonArr
 interface ButtonProps {
@@ -13,28 +15,17 @@ interface ButtonProps {
     label: string
 }
 
-// props que vamos acessar de currentTheme e consequentemente de themes.js
-interface ThemeProps {
-    textareaBg: string,
-    textareaBorder: string,
-    textareaText: string,
-    textareaPlaceholder: string,
-    checkboxes: string,
-    label: string,
-    inputBorder: string
-}
-
 // props que utilizei nesse componente e nos componentes filhos
 interface TextareaProps {
     textarea: string,
-    charsWithoutSpaces: string,
+    charsWithoutSpaces: number,
     handleCharCount: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
     trimChars: () => void,
     checked: Record<string, boolean>
     buttonArr: ButtonProps[];
     handleChecked: (id: string) => void,
-    wordCount: string,
-    currentTheme: ThemeProps;
+    wordCount: number,
+    currentTheme: Theme;
 }
 
 const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleCharCount, trimChars, checked, buttonArr, handleChecked, wordCount, currentTheme }) => {
@@ -45,8 +36,7 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
         setLimit(e.target.value);
     }
     const limitNum = Number(limit);
-    const charsWithoutSpacesNum = Number(charsWithoutSpaces);
-    const comparisonLimit = charsWithoutSpacesNum > limitNum;
+    const comparisonLimit = charsWithoutSpaces > limitNum;
 
     // função que une a função de marcar a "checkbox" com a de cortar os espaços da textarea/string
     const handleClick = () => {
@@ -54,11 +44,8 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
         trimChars();
     }
 
-    // transforma o número de palavras em número para podermos utilizar na equação
-    const wordCountNum = Number(wordCount);
-
     // divide por 225 (média de palavras lidas por minutos; entre 200 e 250, 225 fica no meio) e fixa os decimas em somente duas casas após isso
-    const readingTime = (wordCountNum / 225).toFixed(2);
+    const readingTime = (wordCount / 225).toFixed(2);
 
     // variável com let para podermos alterar
     // readingTime - que era uma string - é passado para número agora

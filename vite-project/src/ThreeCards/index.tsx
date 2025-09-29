@@ -5,9 +5,9 @@ import Shape3 from './../assets/Shape-03.svg'
 
 // tipificação do que foi recebido pelo componente
 interface CardProps {
-  charsWithoutSpaces: string,
+  charsWithoutSpaces: number,
   wordCount: number,
-  sentencesCount: boolean
+  sentencesCount: number
 }
 
 const ThreeCards: React.FC<CardProps> = ({ charsWithoutSpaces, wordCount, sentencesCount }) => {
@@ -18,7 +18,7 @@ const ThreeCards: React.FC<CardProps> = ({ charsWithoutSpaces, wordCount, senten
 
       <div className=' flex w-[19.95rem] h-[9.375rem] p-[1rem] bg-light-purple rounded-[0.75rem] overflow-hidden relative'>
         <div className='w-full flex flex-col gap-[0.5rem] relative z-10'>
-          <h1 className='text-preset-1 text-almost-black font-dmsans font-bold h-[4rem]'>{charsWithoutSpaces}</h1>
+          <h1 className='text-preset-1 text-almost-black font-dm-sans font-bold h-[4rem]'>{charsWithoutSpaces}</h1>
           <p className='text-preset-3 text-almost-black font-dm-sans w-full'>Total Characters</p>
         </div>
         <img

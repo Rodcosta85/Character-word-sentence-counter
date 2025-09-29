@@ -1,25 +1,24 @@
 import { useState } from 'react'
-import Chevron from '../assets/chevron.svg'
-
-interface ThemeProps {
-    headingLetter: string,
-    densityDescription: string,
-    letters: string,
-    emptyPercentage: string,
-    seeMore: string,
-    chevron: any
-}
+import themes from '../themes'
 
 interface TextareaProps {
     textarea: string,
     charCount?: number,
-    charsWithoutSpaces: string,
-    currentTheme: ThemeProps
+    charsWithoutSpaces: number,
+    currentTheme: Partial<typeof themes[0]>
+}
+
+interface Frequency {
+    letter: string,
+    count: number,
+    percentage: number,
 }
 
 const LetterDensity: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, currentTheme }) => {
 
-    const getLetterFrequencies = (text: string): Record<string, number> => {
+    const [toggle, setToggle] = useState<boolean>(false);
+
+    const getLetterFrequencies = (text: string): Frequency[] => {
         const counts: Record<string, number> = {};
         for (const char of text) {
             if (/[a-z]/i.test(char)) {
@@ -27,20 +26,18 @@ const LetterDensity: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, 
                 counts[lower] = (counts[lower] || 0) + 1;
             }
         }
-        return counts;
-    };
 
-    const charsWithoutSpacesNum = Number(charsWithoutSpaces);
-    const frequencies = getLetterFrequencies(textarea);
-    const sortedPercentages =
-        Object.entries(frequencies).map(([letter, count]) => ({
+        const sorted = Object.entries(counts).map(([letter, count]) => ({
             letter,
             count,
-            percentage: (count / charsWithoutSpacesNum) * 100
-
+            percentage: (count / charsWithoutSpaces) * 100
         })).sort((a, b) => b.count - a.count);
 
-    const [toggle, setToggle] = useState<boolean>(false);
+        return sorted;
+    };
+
+    const frequencies = getLetterFrequencies(textarea);
+
     const handleToggle = () => {
         setToggle(prevState => !prevState);
     }
@@ -53,7 +50,7 @@ const LetterDensity: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, 
                 style={{ height: `${toggle ? '170px' : '100%'}` }}
                 className={`${textarea === '' ? 'hidden' : 'flex'} flex-col gap-[0.75rem] overflow-hidden`}
             >
-                {sortedPercentages.map(({ letter, count, percentage }) => (
+                {frequencies.map(({ letter, count, percentage }) => (
                     <div
                         key={letter}
                         className='flex items-center justify-between'

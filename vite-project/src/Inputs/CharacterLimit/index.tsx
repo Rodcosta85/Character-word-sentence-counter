@@ -1,14 +1,10 @@
 import React from 'react'
 
 import Check from './../../assets/check.svg';
+import type { Theme } from '../../themes';
 
 interface ButtonProps {
     id: string,
-    label: string
-}
-
-interface ThemeProps {
-    checkboxes: string,
     label: string
 }
 
@@ -16,7 +12,7 @@ interface SomeProps {
     buttonArr: ButtonProps[];
     handleChecked: (id: string) => void,
     checked: Record<string, boolean>
-    currentTheme: ThemeProps
+    currentTheme: Partial<Theme>
 }
 
 const ChraracterLimit:React.FC<SomeProps> = ({ buttonArr, handleChecked, checked, currentTheme }) => {
