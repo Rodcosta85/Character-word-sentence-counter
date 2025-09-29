@@ -1,15 +1,16 @@
-import { useState } from 'react';
-
 interface ThemeProps {
-    
+    logoSrc: any,
+    changeBtn: any,
+    changeBg: string,
+    title: string
 }
 
-function Header({ currentTheme }) {
-    const [themeBtn, setThemeBtn] = useState<any>("");
-    const changeTheme = () => {
-        setThemeBtn(prevState => !prevState);
-    }
+interface HeaderProps {
+    currentTheme: ThemeProps,
+    handleChangeTheme: () => void
+}
 
+const Header:React.FC<HeaderProps>= ({ currentTheme, handleChangeTheme}) => {
 
     return (
         <>
@@ -17,16 +18,18 @@ function Header({ currentTheme }) {
                 <div className='flex items-center gap-[0.75rem] w-full'>
                     <img
                         src={`${currentTheme.logoSrc}`}
-                        alt="the logo of a company" />
-                    <h2 className='text-preset-2 font-dm-sans font-semibold text-light-gray '>Character Counter</h2>
+                        alt="the logo of a company" 
+                    />
+                    <h2 className={`text-preset-2 ${currentTheme.title} font-dm-sans font-semibold`}>Character Counter</h2>
                 </div>
                 <button
-                    onClick={changeTheme}
-                    className='flex items-center justify-center w-[2.75rem] h-[2.75rem] bg-dark-gray rounded-[8px]'>
+                    onClick={handleChangeTheme}
+                    className={`flex items-center justify-center w-[2.75rem] h-[2.75rem] ${currentTheme.changeBg} rounded-[8px]`}>
                     <img
-                        src={themeBtn ? `${currentTheme.changeTheme[0]}` : `${currentTheme.changeTheme[1]}`}
+                        src={`${currentTheme.changeBtn}`}
                         alt=""
-                        className='w-[1.375rem] h-[1.375rem]' />
+                        className='w-[1.375rem] h-[1.375rem]' 
+                    />
                 </button>
             </header>
         </>

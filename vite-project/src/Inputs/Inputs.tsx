@@ -13,6 +13,17 @@ interface ButtonProps {
     label: string
 }
 
+// props que vamos acessar de currentTheme e consequentemente de themes.js
+interface ThemeProps {
+    textareaBg: string,
+    textareaBorder: string,
+    textareaText: string,
+    textareaPlaceholder: string,
+    checkboxes: string,
+    label: string,
+    inputBorder: string
+}
+
 // props que utilizei nesse componente e nos componentes filhos
 interface TextareaProps {
     textarea: string,
@@ -22,10 +33,11 @@ interface TextareaProps {
     checked: Record<string, boolean>
     buttonArr: ButtonProps[];
     handleChecked: (id: string) => void,
-    wordCount: string
+    wordCount: string,
+    currentTheme: ThemeProps;
 }
 
-const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleCharCount, trimChars, checked, buttonArr, handleChecked, wordCount }) => {
+const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleCharCount, trimChars, checked, buttonArr, handleChecked, wordCount, currentTheme }) => {
 
     // estado para o limite de palavras iniciado em 300 como estabelecido pelo figma do projeto
     const [limit, setLimit] = useState<string>('300');
@@ -44,9 +56,9 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
 
     // transforma o número de palavras em número para podermos utilizar na equação
     const wordCountNum = Number(wordCount);
-    
+
     // divide por 225 (média de palavras lidas por minutos; entre 200 e 250, 225 fica no meio) e fixa os decimas em somente duas casas após isso
-    const readingTime = (wordCountNum/225).toFixed(2);
+    const readingTime = (wordCountNum / 225).toFixed(2);
 
     // variável com let para podermos alterar
     // readingTime - que era uma string - é passado para número agora
@@ -59,12 +71,12 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
     if (readingTimeNum < 1) {
         timeVal = 'seconds'
         readingTimeNum = Math.round(readingTimeNum * 60);
-    } else {}
+    } 
 
 
-    const inputNumberStyles = 'text-light-gray w-[3.4375rem] h-[1.8125rem] pl-[0.75rem] pr-[0.75rem] pt-[0.25rem] pb-[0.25rem] rounded-[0.375rem] border-[1px] border-medium-gray focus:outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]'
-    const textareaStyles = 'w-[61.875rem] h-[12.5rem] border-[2px] p-[1.25rem] border-medium-gray bg-off-black hover:bg-dark-gray rounded-[0.75rem] text-light-gray placeholder:text-light-gray focus:shadow-[0_0_10px_0_var(--light-purple)]'
-
+    const inputNumberStyles = `${currentTheme.label} w-[3.4375rem] h-[1.8125rem] pl-[0.75rem] pr-[0.75rem] pt-[0.25rem] pb-[0.25rem] rounded-[0.375rem] border-[1px] ${currentTheme.inputBorder} focus:outline-none appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]`
+    const textareaStyles = `w-[61.875rem] h-[12.5rem] border-[2px] p-[1.25rem] ${currentTheme.textareaBg} ${currentTheme.textareaBorder} hover:${currentTheme.textareaBg} rounded-[0.75rem] ${currentTheme.textareaText} ${currentTheme.textareaPlaceholder} focus:shadow-[0_0_10px_0_var(--light-purple)]'
+`
 
     return (
         <div className='flex flex-col gap-[1rem]'>
@@ -87,6 +99,7 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
                         buttonArr={buttonArr}
                         handleClick={handleClick}
                         checked={checked}
+                        currentTheme={currentTheme}
                     />
                     <div className='flex gap-[0.62rem]'>
                         {/* a segunda checkbox aciona um input com a quantidade de caracters desejada pelo usuario */}
@@ -94,6 +107,7 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
                             buttonArr={buttonArr}
                             handleChecked={handleChecked}
                             checked={checked}
+                            currentTheme={currentTheme}
                         />
                         <input
                             type="text"
@@ -104,7 +118,7 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
                     </div>
                 </div>
                 {/* aqui é utilizado nossas variáveis feitas com let para mudar de forma condicional */}
-                <p className="text-preset-4 text-light-gray">Approx. reading time: {readingTimeNum} {timeVal}</p>
+                <p className={`text-preset-4 ${currentTheme.textareaText}`}>Approx. reading time: {readingTimeNum} {timeVal}</p>
             </div>
         </div>
     )

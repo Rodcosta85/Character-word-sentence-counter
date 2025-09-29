@@ -9,11 +9,28 @@ import Inputs from './Inputs/Inputs'
 import ThreeCards from './Three Cards/ThreeCards'
 import LetterDensity from './Letter Density/LetterDensity';
 
-// interface dos botões pseud-checkboxes
+// interface dos botões pseudo-checkboxes
 interface ButtonProps {
   id: string,
   label: string
 }
+
+// interface ThemeProps {
+//   overallBg: string,
+//   LogoSrc: any,
+//   title: string,
+//   changeBtn: any,
+//   mainHeading: string,
+//   textareaBg: string,
+//   textareaBorder: string,
+//   textareaText: string,
+//   checkboxes: string,
+//   label: string,
+//   headingLetter: string,
+//   letters: string,
+//   emptyPercentage: string,
+//   seeMore: string
+// }
 
 function App() {
 
@@ -31,6 +48,9 @@ function App() {
 
   // estado que guarda os temas escuro e claro
   const [currentTheme, setCurrentTheme] = useState<typeof themes[0]>(themes[0]);
+
+  // estado que seta o botão e - consequentemente - muda os temas
+  const [themeBtn, setThemeBtn] = useState<any>(false);
 
 
   // função que calcula a quantidade de caracteres na string do textarea
@@ -71,6 +91,19 @@ function App() {
   const sentencesCount = textarea.trim() === "" ? 0 : textarea.trim().split(/[.!?]+[\s\n]*/).filter(Boolean).length;
 
 
+  const handleChangeTheme = () => {
+    setThemeBtn(prevState => !prevState);
+  }
+
+  useEffect(() => {
+    if (themeBtn === true) {
+      setCurrentTheme(themes[0])
+    } else if (themeBtn === false) {
+      setCurrentTheme(themes[1]);
+    }
+  }, [themeBtn])
+
+
 
   return (
     <div className={`flex justify-center gap-[48px] w-full h-full pt-[32px] pb-[64px] ${currentTheme.overallBg}`}>
@@ -79,8 +112,9 @@ function App() {
       <div className='flex flex-col items-center w-[990px] min-h-[799px] gap-[3rem]'>
         <Header
           currentTheme={currentTheme}
+          handleChangeTheme={handleChangeTheme}
         />
-        <h1 className={`text-preset-1 font-dm-sans ${currentTheme.title} font-bold text-center leading-[4rem] tracking-[-0.0625rem]`}>
+        <h1 className={`text-preset-1 font-dm-sans ${currentTheme.mainHeading} font-bold text-center leading-[4rem] tracking-[-0.0625rem]`}>
           Analyze your text <br /> in real-time.
         </h1>
         <Inputs
@@ -92,16 +126,19 @@ function App() {
           buttonArr={buttonArr}
           handleChecked={handleChecked}
           wordCount={wordCount}
+          currentTheme={currentTheme}
         />
         <ThreeCards
           charsWithoutSpaces={charsWithoutSpaces}
           wordCount={wordCount}
           sentencesCount={sentencesCount}
+          currentTheme={currentTheme}
         />
         <LetterDensity
           textarea={textarea}
           charCount={charCount}
           charsWithoutSpaces={charsWithoutSpaces}
+          currentTheme={currentTheme}
         />
       </div>
       {/* container do conteudo em geral */}

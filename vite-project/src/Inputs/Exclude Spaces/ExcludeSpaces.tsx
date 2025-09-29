@@ -7,13 +7,19 @@ interface ButtonProps {
     label: string
 }
 
+interface ThemeProps {
+    checkboxes: string,
+    label: string
+}
+
 interface SomeProps {
     buttonArr: ButtonProps[];
     handleClick: () => void,
     checked: Record<string, boolean>
+    currentTheme: ThemeProps
 }
 
-const ExcludeSpaces:React.FC<SomeProps> = ({ buttonArr, handleClick, checked }) => {
+const ExcludeSpaces:React.FC<SomeProps> = ({ buttonArr, handleClick, checked, currentTheme }) => {
     return (
         <div className="flex items-center gap-[0.62rem]">
             <button
@@ -21,7 +27,7 @@ const ExcludeSpaces:React.FC<SomeProps> = ({ buttonArr, handleClick, checked }) 
                 name=""
                 id={buttonArr[0].id}
                 onClick={handleClick}
-                className="flex items-center justify-center w-[1rem] h-[1rem] border-[1px] border-white rounded-[0.25rem]"
+                className={`flex items-center justify-center w-[1rem] h-[1rem] border-[1px] ${currentTheme.checkboxes} rounded-[0.25rem]`}
             >
                 <img
                     src={Check}
@@ -29,7 +35,7 @@ const ExcludeSpaces:React.FC<SomeProps> = ({ buttonArr, handleClick, checked }) 
                     className={`${checked[buttonArr[0].id] ? 'block' : 'hidden'}`}
                 />
             </button>
-            <p className="text-light-gray">
+            <p className={`${currentTheme.label}`}>
                 {buttonArr[0].label}
             </p>
         </div>
