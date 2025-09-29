@@ -47,7 +47,7 @@ const themes = [
         densityDescription: 'text-almost-black',
         letters: 'text-almost-black',
         emptyPercentage: 'bg-off-white',
-        seeMore: 'text-almost-black'
+        seeMore: 'text-almost-black',
         chevron: ChevronBlack,
     }
 ]
