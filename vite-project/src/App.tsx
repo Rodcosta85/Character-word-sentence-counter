@@ -1,13 +1,18 @@
-import { useState, useEffect, type ReactElement } from 'react'
+import { useState, useEffect } from 'react'
 
+// tema escuro e claro
+import themes from './themes';
+
+// componentes
 import Header from './Header/Header';
 import Inputs from './Inputs/Inputs'
 import ThreeCards from './Three Cards/ThreeCards'
 import LetterDensity from './Letter Density/LetterDensity';
 
+// interface dos botões pseud-checkboxes
 interface ButtonProps {
-    id: string,
-    label: string
+  id: string,
+  label: string
 }
 
 function App() {
@@ -24,7 +29,8 @@ function App() {
   // estado dos botões que são pseudo-checkboxes
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
-
+  // estado que guarda os temas escuro e claro
+  const [currentTheme, setCurrentTheme] = useState<typeof themes[0]>(themes[0]);
 
 
   // função que calcula a quantidade de caracteres na string do textarea
@@ -53,21 +59,28 @@ function App() {
     }));
   };
 
+  // variavel que guarda uma condicional
+  // condicional determina que se trimmed for verdadeiro, checamos se existem espaços e retiramos eles, assim dando a contagem sem espaços. 
+  // caso contrário, mantemos a contagem de caracteres de forma normal.
   const charsWithoutSpaces = trimmed ? charCount - (textarea.match(/\s/g)?.length || 0) : charCount
 
+  // pega a variavel do estado de textarea e retira os espaços, assim definindo a existência de múltiplas strings, ou seja, palavras. Depois disso, contamos elas.
   const wordCount = textarea.trim() === "" ? 0 : textarea.trim().split(/\s+/).length;
 
+  // cortamos novamente textarea com o método trim, porém somente após uma combinação de ponto e espaço, assim definindo novamente múltiplas strings, porém agora no formato de frases. 
   const sentencesCount = textarea.trim() === "" ? 0 : textarea.trim().split(/[.!?]+[\s\n]*/).filter(Boolean).length;
 
 
 
   return (
-    <div className='flex justify-center gap-[48px] w-full h-full pt-[32px] pb-[64px] bg-almost-black'>
+    <div className={`flex justify-center gap-[48px] w-full h-full pt-[32px] pb-[64px] ${currentTheme.overallBg}`}>
 
       {/* container do conteudo em geral */}
       <div className='flex flex-col items-center w-[990px] min-h-[799px] gap-[3rem]'>
-        <Header />
-        <h1 className='text-preset-1 font-dm-sans text-off-white font-bold text-center leading-[4rem] tracking-[-0.0625rem]'>
+        <Header
+          currentTheme={currentTheme}
+        />
+        <h1 className={`text-preset-1 font-dm-sans ${currentTheme.title} font-bold text-center leading-[4rem] tracking-[-0.0625rem]`}>
           Analyze your text <br /> in real-time.
         </h1>
         <Inputs
@@ -85,7 +98,6 @@ function App() {
           wordCount={wordCount}
           sentencesCount={sentencesCount}
         />
-
         <LetterDensity
           textarea={textarea}
           charCount={charCount}

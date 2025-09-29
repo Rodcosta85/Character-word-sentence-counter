@@ -27,11 +27,10 @@ interface TextareaProps {
 
 const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleCharCount, trimChars, checked, buttonArr, handleChecked, wordCount }) => {
 
+    // estado para o limite de palavras iniciado em 300 como estabelecido pelo figma do projeto
     const [limit, setLimit] = useState<string>('300');
-    const [limitPassed, setLimitPassed] = useState<boolean>(false);
     const handleCharLimit = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLimit(e.target.value);
-        setLimitPassed(true);
     }
     const limitNum = Number(limit);
     const charsWithoutSpacesNum = Number(charsWithoutSpaces);
@@ -43,11 +42,20 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
         trimChars();
     }
 
+    // transforma o número de palavras em número para podermos utilizar na equação
     const wordCountNum = Number(wordCount);
+    
+    // divide por 225 (média de palavras lidas por minutos; entre 200 e 250, 225 fica no meio) e fixa os decimas em somente duas casas após isso
     const readingTime = (wordCountNum/225).toFixed(2);
+
+    // variável com let para podermos alterar
+    // readingTime - que era uma string - é passado para número agora
     let readingTimeNum = Number(readingTime);
+
+    // variável que vamos utilizar para o texto, passando de minutos para segundos dependendo do número obtido
     let timeVal = 'minutes'
 
+    // condicional para mudar de minutos para segundos tanto no valor do tempo como o texto da unidade temporal
     if (readingTimeNum < 1) {
         timeVal = 'seconds'
         readingTimeNum = Math.round(readingTimeNum * 60);
@@ -72,7 +80,6 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
                     <p className="text-preset-4 text-light-red">Limit reached! Your text exceeds {limitNum} characters.</p>
                 </div>
             </div>
-
             <div className='flex justify-between items-center h-[1.8125rem]'>
                 <div className='flex gap-[1.5rem]'>
                     {/* primeira checkbox - a que corta os espaços */}
@@ -96,6 +103,7 @@ const Inputs: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, handleC
                         />
                     </div>
                 </div>
+                {/* aqui é utilizado nossas variáveis feitas com let para mudar de forma condicional */}
                 <p className="text-preset-4 text-light-gray">Approx. reading time: {readingTimeNum} {timeVal}</p>
             </div>
         </div>

@@ -1,9 +1,9 @@
-import { useState } from 'react'
-
+// imagens interior dos cards 
 import Shape1 from './../assets/Shape-01.svg'
 import Shape2 from './../assets/Shape-02.svg'
 import Shape3 from './../assets/Shape-03.svg'
 
+// tipificação do que foi recebido pelo componente
 interface CardProps {
   charsWithoutSpaces: string,
   wordCount: number,
