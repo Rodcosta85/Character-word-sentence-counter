@@ -74,7 +74,10 @@ const LetterDensity: React.FC<TextareaProps> = ({ textarea, charsWithoutSpaces, 
                 className={`${textarea === '' ? 'hidden' : 'flex'} items-center gap-[0.5rem] text-preset-4 ${currentTheme.seeMore}`}
             >
                 See {toggle ? 'more' : 'less'}
-                <img src={`${currentTheme.chevron}`} alt="" className={`transform transition ease-in-out ${toggle ? '' : 'rotate-180'}`} />
+                <img
+                    src={`${currentTheme.chevron}`}
+                    alt=""
+                    className={`transform transition ease-in-out ${toggle ? '' : 'rotate-180'}`} />
             </button>
         </div>
     )
