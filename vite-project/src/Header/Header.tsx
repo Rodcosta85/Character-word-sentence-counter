@@ -1,5 +1,9 @@
 import { useState } from 'react';
 
+interface ThemeProps {
+    
+}
+
 function Header({ currentTheme }) {
     const [themeBtn, setThemeBtn] = useState<any>("");
     const changeTheme = () => {
